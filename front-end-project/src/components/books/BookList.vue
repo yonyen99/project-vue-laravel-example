@@ -18,8 +18,7 @@
   </template>
   
   <script>
-import axios from "axios";
-
+import http from '@/http-common.js';
 export default {
   data() {
     return {
@@ -28,8 +27,8 @@ export default {
   },
   methods: {
     fetchData() {
-      axios
-        .get("http://127.0.0.1:8000/api/books")
+      http
+        .get("/api/books")
         .then((response) => {
           this.books = response.data.data;
         })
@@ -38,8 +37,8 @@ export default {
         });
     },
     deleteBook(id) {
-      axios
-        .delete(`http://127.0.0.1:8000/api/books/${id}`)
+      http
+        .delete(`/api/books/${id}`)
         .then(() => {
           this.fetchData();
         })

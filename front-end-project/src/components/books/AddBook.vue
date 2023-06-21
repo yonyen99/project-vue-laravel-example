@@ -17,7 +17,8 @@
 </template>
   
   <script>
-import axios from "axios";
+import http from '@/http-common.js';
+
 
 export default {
   data() {
@@ -33,8 +34,8 @@ export default {
         description: this.description,
       };
 
-      axios
-        .post("http://127.0.0.1:8000/api/books", newBook)
+      http
+        .post("/api/books", newBook)
         .then(() => {
           this.$router.push("/");
         })
