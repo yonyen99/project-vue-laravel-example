@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->text('description')->nullable();
+            $table->bigInteger('media_id')->nullable();
             $table->timestamps();
         });
     }

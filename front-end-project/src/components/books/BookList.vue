@@ -1,24 +1,32 @@
 <template>
-    <div class="container">
-      <div class="mb-3">
-        <router-link to="/add" class="btn btn-primary">Add Book</router-link>
-      </div>
-  
-      <ul class="list-group">
-        <li class="list-group-item" v-for="book in books" :key="book.id">
-          <h3>{{ book.title }}</h3>
-          <p>{{ book.description }}</p>
-          <div>
-            <button @click="deleteBook(book.id)" class="btn btn-danger">Delete</button>
-            <router-link :to="`/edit/${book.id}`" class="btn btn-primary">Edit</router-link>
-          </div>
-        </li>
-      </ul>
+  <div class="container">
+    <div class="mb-3">
+      <router-link to="/add" class="btn btn-primary">Add Book</router-link>
     </div>
-  </template>
-  
-  <script>
+
+    <div class="card" v-for="book in books" :key="book.id">
+      <div class="row g-0">
+        <div class="col-4 col-md-2">
+          <img :src="book.image.file_url" alt="Book Image" class="card-img-start image-thumbnail" />
+        </div>
+        <div class="col-8 col-md-10">
+          <div class="card-body">
+            <h3 class="card-title">{{ book.title }}</h3>
+            <p class="card-text">{{ book.description }}</p>
+            <div>
+              <button @click="deleteBook(book.id)" class="btn btn-danger">Delete</button>
+              <router-link :to="`/edit/${book.id}`" class="btn btn-primary">Edit</router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
 import http from '@/http-common.js';
+
 export default {
   data() {
     return {
@@ -52,7 +60,10 @@ export default {
   },
 };
 </script>
-  
-  <style scoped>
+
+<style scoped>
+.image-thumbnail {
+  max-width: 100%;
+  height: auto;
+}
 </style>
-  

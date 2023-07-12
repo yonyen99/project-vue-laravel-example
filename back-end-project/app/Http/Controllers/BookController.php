@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BookResource;
+use App\Http\Resources\showBookResource;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
@@ -15,7 +17,7 @@ class BookController extends Controller
     public function index()
     {
         $book = Book::all();
-
+        $book = BookResource::collection($book);
         return response()->json(['success' =>true, 'data' => $book],200);
     }
 
@@ -27,10 +29,7 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        $book = Book::create([
-            'title' => request('title'),
-            'description' => request('description'),
-        ]);
+        $book = Book::store($request);
 
         return response()->json(['success' =>true, 'data' => $book],201);
     }
@@ -47,6 +46,7 @@ class BookController extends Controller
         if(!$book){
             return response()->json(['message' =>'Note Found'],404);
         }
+        $book = new showBookResource($book);
 
         return response()->json(['success' =>true, 'data' => $book],200);
     }
@@ -61,10 +61,9 @@ class BookController extends Controller
     public function update(Request $request, $id)
     {
         $book = Book::find($id);
-        $book->update([
-            'title' => request('title'),
-            'description' => request('description'),
-        ]);
+
+        $book =Book::store($request, $id);
+
 
         return response()->json(['success' =>true, 'data' => $book], 200);
     }
